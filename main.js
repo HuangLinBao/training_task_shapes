@@ -63,14 +63,6 @@ const shapeContainer = document.querySelector(".shape-container");
 const switchColorBtn = document.querySelector("#color-switch");
 const switchShapeBtn = document.querySelector("#shape-switch");
 const colorSwitch = document.querySelector("#color");
-const triangle = document.querySelector(".triangle");
-const rightTriangle = document.querySelector(".right-triangle");
-const trapaziod = document.querySelector(".trap");
-const square = document.querySelector(".square");
-const rectangle = document.querySelector(".rectangle");
-const parallel = document.querySelector(".para");
-const circle = document.querySelector(".circle");
-const oval = document.querySelector(".oval");
 
 switchShapeBtn.addEventListener("click", () => {
   if (i + 1 === shapes.length) {
