@@ -1,26 +1,39 @@
 import "./style.scss";
 let i = 0;
+const shapes = [
+  `<div class="shape rectangle">
+  <img src="https://i.kym-cdn.com/entries/icons/facebook/000/025/054/SOMEBODY_TOUCHA_MY_SPAGHET.jpg"/>
+  </div>`,
+  `<div class="shape square">
+  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/Donald_Trump_mug_shot.jpg/270px-Donald_Trump_mug_shot.jpg"/>
+</div>`,
+  ` <div class="shape circle">
+  <img src="https://media.tenor.com/CuFjWMqFr18AAAAd/jerry-bathroom.gif"/>
+</div>`,
+  `<div class="shape triangle"></div>`,
+  `<div class="shape oval ">
+  <img src="https://pyxis.nymag.com/v1/imgs/37e/828/1e2a2943b3871f23576937330a0fbdd9f6-squidward.rsquare.w400.jpg"/>
+</div>`,
+  ` <div class="shape right-triangle "></div>`,
+  `<div class="shape trap "></div>`,
+  `<div class="shape para">
+  <img src="https://storage.googleapis.com/mytour-prod/blog/1668098834135_tower-of-pisa-jpg.jpeg"/>
+</div>`,
+];
+const shapesClasses = [
+  ".rectangle",
+  ".square",
+  ".circle",
+  ".triangle",
+  ".oval",
+  ".right-triangle",
+  ".trap",
+  ".para",
+];
 document.querySelector("#app").innerHTML = `
   <div class="container">
     <div class="shape-container">
-      <div class="shape square">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/Donald_Trump_mug_shot.jpg/270px-Donald_Trump_mug_shot.jpg"/>
-      </div>
-      <div class="shape rectangle visible">
-      <img src="https://i.kym-cdn.com/entries/icons/facebook/000/025/054/SOMEBODY_TOUCHA_MY_SPAGHET.jpg"/>
-      </div>
-      <div class="shape triangle"></div>
-      <div class="shape circle">
-        <img src="https://media.tenor.com/CuFjWMqFr18AAAAd/jerry-bathroom.gif"/>
-      </div>
-      <div class="shape oval ">
-        <img src="https://pyxis.nymag.com/v1/imgs/37e/828/1e2a2943b3871f23576937330a0fbdd9f6-squidward.rsquare.w400.jpg"/>
-      </div>
-      <div class="shape right-triangle "></div>
-      <div class="shape para">
-        <img src="https://storage.googleapis.com/mytour-prod/blog/1668098834135_tower-of-pisa-jpg.jpeg"/>
-      </div>
-      <div class="shape trap "></div>
+      ${shapes[i]}
     </div>
     <div class="color-switch">
       <select id="color">
@@ -37,16 +50,6 @@ document.querySelector("#app").innerHTML = `
     <button id="shape-switch">Switch Shape</button>
   </div>
 `;
-const shapes = [
-  ".rectangle",
-  ".square",
-  ".circle",
-  ".triangle",
-  ".oval",
-  ".right-triangle",
-  ".trap",
-  ".para",
-];
 
 const colors = {
   "color-mmb": "rgba(6, 82, 221, 1)",
@@ -56,7 +59,7 @@ const colors = {
   "color-android": "rgba(163, 203, 56, 1)",
   "color-default": "rgba(237, 76, 103, 1)",
 };
-
+const shapeContainer = document.querySelector(".shape-container");
 const switchColorBtn = document.querySelector("#color-switch");
 const switchShapeBtn = document.querySelector("#shape-switch");
 const colorSwitch = document.querySelector("#color");
@@ -71,35 +74,40 @@ const oval = document.querySelector(".oval");
 
 switchShapeBtn.addEventListener("click", () => {
   if (i + 1 === shapes.length) {
-    document.querySelector(shapes[i]).classList.remove("visible");
     i = 0;
-    document.querySelector(shapes[i]).classList.add("visible");
+    shapeContainer.innerHTML = shapes[i];
     return;
   }
-  document.querySelector(shapes[i]).classList.remove("visible");
   i++;
-
-  document.querySelector(shapes[i]).classList.add("visible");
+  shapeContainer.innerHTML = shapes[i];
 });
 
 switchColorBtn.addEventListener("click", () => {
   if (colorSwitch.value === "select") {
     return;
   } else {
-    switchClorBorders(colors[colorSwitch.value]);
-    switchClorBackground(colors[colorSwitch.value]);
+    console.log(document.styleSheets);
+    switchColor(colors[colorSwitch.value]);
   }
 });
 
-function switchClorBorders(color) {
-  triangle.style.borderBottomColor = color;
-  trapaziod.style.borderBottomColor = color;
-  rightTriangle.style.borderBottomColor = color;
-}
-function switchClorBackground(color) {
-  rectangle.style.backgroundColor = color;
-  square.style.backgroundColor = color;
-  parallel.style.backgroundColor = color;
-  circle.style.backgroundColor = color;
-  oval.style.backgroundColor = color;
+function switchColor(color) {
+  const stylesheets = document.styleSheets;
+  for (let i = 0; i < stylesheets.length; i++) {
+    const rules = stylesheets[i].cssRules;
+    for (let j = 0; j < rules.length; j++) {
+      if (rules[j].selectorText === ".shape") {
+        rules[j].style.backgroundColor = color;
+      }
+      if (rules[j].selectorText === ".triangle") {
+        rules[j].style.borderColor = color;
+      }
+      if (rules[j].selectorText === ".trap") {
+        rules[j].style.borderBottomColor = color;
+      }
+      if (rules[j].selectorText === ".right-triangle") {
+        rules[j].style.borderBottomColor = color;
+      }
+    }
+  }
 }

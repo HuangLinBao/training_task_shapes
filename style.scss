@@ -76,13 +76,7 @@ $color-default: rgba(237, 76, 103, 1);
       @include shapes-dimensions();
       background-color: $color-default;
       margin: 20px;
-      display: none;
     }
-
-    .visible {
-      display: block;
-    }
-
     .square {
       position: relative;
       height: 350px;
