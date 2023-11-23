@@ -34,7 +34,20 @@ document.querySelector("#app").innerHTML = `
       </select>
       <button id="color-switch">Switch Color</button>
     </div>
-    <button id="shape-switch">Switch Shape</button>
+    <div class="shape-switch">
+      <button id="shape-switch">Switch Shape</button>
+      <select id="shape">
+      <option value="select">Select Shape</option>
+      <option value="0">Rectangle</option>
+      <option value="1">Square</option>
+      <option value="2">Circle</option>
+      <option value="3">Triangle</option>
+      <option value="4">Oval</option>
+      <option value="5">Right Triangle</option>
+      <option value="6">Trapozoid</option>
+      <option value="7">Parallelogram</option>
+      </select>
+    </div>
   </div>
 `;
 const shapes = [
@@ -68,17 +81,14 @@ const rectangle = document.querySelector(".rectangle");
 const parallel = document.querySelector(".para");
 const circle = document.querySelector(".circle");
 const oval = document.querySelector(".oval");
+const switchShapeSelect = document.querySelector("#shape");
 
 switchShapeBtn.addEventListener("click", () => {
-  if (i + 1 === shapes.length) {
-    document.querySelector(shapes[i]).classList.remove("visible");
-    i = 0;
-    document.querySelector(shapes[i]).classList.add("visible");
+  if (switchShapeSelect.value === "select") {
     return;
   }
   document.querySelector(shapes[i]).classList.remove("visible");
-  i++;
-
+  i = switchShapeSelect.value;
   document.querySelector(shapes[i]).classList.add("visible");
 });
 
