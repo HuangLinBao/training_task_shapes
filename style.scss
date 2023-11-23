@@ -1,0 +1,176 @@
+$gradient-background: linear-gradient(
+  45deg,
+  rgba(237, 76, 103, 1) 0%,
+  rgba(181, 52, 113, 1) 50%,
+  rgba(131, 52, 113, 1) 71%,
+  rgba(111, 30, 81, 1) 100%
+);
+
+$color-mmb: rgba(6, 82, 221, 1);
+$color-bm: rgba(18, 203, 196, 1);
+$color-lus20000: rgba(27, 20, 100, 1);
+$color-sunflower: rgba(255, 195, 18, 1);
+$color-android: rgba(163, 203, 56, 1);
+$color-default: rgba(237, 76, 103, 1);
+
+@mixin shapes-dimensions {
+  width: 350px;
+}
+@mixin tringle-dimensions {
+  background-color: transparent;
+  height: 0;
+  width: 0;
+}
+
+@mixin trap-dimensions {
+  background-color: transparent;
+  height: 0;
+  width: 150px;
+}
+
+@mixin img-attr {
+  width: 100%;
+  height: 100%;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-image: $gradient-background;
+}
+
+#app {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.container {
+  width: 1280px;
+  /* From https://css.glass */
+  background: rgba(6, 5, 19, 0.47);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(14.7px);
+  -webkit-backdrop-filter: blur(14.7px);
+  border: 1px solid rgba(6, 5, 19, 0.3);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  padding: 2rem;
+  .shape-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    .shape {
+      @include shapes-dimensions();
+      background-color: $color-default;
+      margin: 20px;
+      display: none;
+    }
+
+    .visible {
+      display: block;
+    }
+
+    .square {
+      position: relative;
+      height: 350px;
+      padding: 20px;
+      img {
+        @include img-attr();
+      }
+    }
+
+    .circle {
+      position: relative;
+      height: 350px;
+      border-radius: 100%;
+      padding: 20px;
+      img {
+        @include img-attr();
+        border-radius: 100%;
+      }
+    }
+    .oval {
+      height: 250px;
+      border-radius: 100%;
+      position: relative;
+      padding: 15px;
+      img {
+        @include img-attr();
+        border-radius: 100%;
+      }
+    }
+
+    .rectangle {
+      height: 150px;
+      position: relative;
+      padding: 20px;
+      img {
+        @include img-attr();
+      }
+    }
+
+    .triangle {
+      @include tringle-dimensions();
+      border-left: 150px solid transparent;
+      border-right: 150px solid transparent;
+      border-bottom: 300px solid $color-default;
+    }
+    .right-triangle {
+      @include tringle-dimensions();
+      border-bottom: 250px solid $color-default;
+      border-right: 300px solid transparent;
+    }
+
+    .para {
+      height: 150px;
+      transform: skew(160deg);
+      position: relative;
+      padding: 20px;
+      img {
+        @include img-attr();
+      }
+    }
+
+    .trap {
+      border-bottom: 180px solid $color-default;
+      border-left: 150px solid transparent;
+      border-right: 150px solid transparent;
+      @include trap-dimensions();
+    }
+  }
+  .color-switch {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+  }
+}
+
+button {
+  margin: 5px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
